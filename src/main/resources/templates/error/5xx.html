@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="fragments/risorse :: risorse-head"></th:block>
+    <title>Internal error</title> 
+  </head>
+  <body>
+  <nav th:replace="fragments/navbar :: navbar('')"></nav>
+  <div class="container">
+  	<div class="alert alert-danger my-5 col-6 mx-auto text-center">
+  		<h1>Sorry an error occurred</h1>
+  		<div th:text="|${status} ${error} ${message}|"></div>
+  	</div>
+  </div>
+  <th:bock th:replace="fragments/risorse :: risorse-js"></th:bock>
+  </body>
+</html>

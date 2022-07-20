@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="fragments/risorse :: risorse-head"></th:block>
+    <title>Books</title> 
+  </head>
+  <body>
+  <nav th:replace="fragments/navbar :: navbar('book')"></nav>
+  <div class="container">
+  	<h1>Books</h1>
+  	<!--  tabella con tutti i book -->
+  	<table class="table" th:if="${books.size() > 0}">
+  		<thead>
+  			<tr>
+	  			<th>Title</th>
+	  			<th>Authors</th>
+	  			<th>Publisher</th>
+	  			<th>ISBN</th>
+  			</tr>
+  		</thead>
+  		<tbody>
+  			<tr th:each="b : ${books}">
+  				<td th:text="${b.title}">Title</td>
+	  			<td th:text="${b.authors}">Authors</td>
+	  			<td th:text="${b.publisher}">Publisher</td>
+	  			<td th:text="${b.isbn}">ISBN</td>
+  			</tr>
+  		</tbody>
+  	</table>
+  </div>
+  <!-- se la lista di book è vuota -->
+  <div class="alert alert-info my-5" th:unless="${books.size() > 0}">
+  	<h3>There are no books yet</h3>
+  </div>
+  <th:bock th:replace="fragments/risorse :: risorse-js"></th:bock>
+  </body>
+</html>
