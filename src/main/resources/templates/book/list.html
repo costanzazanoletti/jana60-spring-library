@@ -8,6 +8,9 @@
   <nav th:replace="fragments/navbar :: navbar('book')"></nav>
   <div class="container">
   	<h1>Books</h1>
+  	<hr/>
+  	<!-- link che mi porta al controller che restituisce la form -->
+  	<a class="btn btn-primary" th:href="@{/add}">Add a book</a>
   	<!--  tabella con tutti i book -->
   	<table class="table" th:if="${books.size() > 0}">
   		<thead>
@@ -16,6 +19,7 @@
 	  			<th>Authors</th>
 	  			<th>Publisher</th>
 	  			<th>ISBN</th>
+	  			<th>Categories</th>
   			</tr>
   		</thead>
   		<tbody>
@@ -24,6 +28,11 @@
 	  			<td th:text="${b.authors}">Authors</td>
 	  			<td th:text="${b.publisher}">Publisher</td>
 	  			<td th:text="${b.isbn}">ISBN</td>
+	  			<td>
+	  				<ul>
+	  					<li th:each="c : ${b.categories}" th:text="${c.name}"></li>
+	  				</ul>
+	  			</td>
   			</tr>
   		</tbody>
   	</table>
