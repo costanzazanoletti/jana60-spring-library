@@ -8,6 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Book {
@@ -15,6 +19,7 @@ public class Book {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @NotEmpty(message = "Title is mandatory")
   @Column(nullable = false)
   private String title;
 
@@ -22,7 +27,9 @@ public class Book {
 
   private String publisher;
 
-  @Column(length = 13, unique = true)
+  @NotEmpty
+  @Size(min = 13, max = 13, message = "ISBN must be 13 characters")
+  @Column(length = 13, unique = true, nullable = false)
   private String isbn;
 
   @Lob
@@ -32,6 +39,8 @@ public class Book {
 
   private Integer year;
 
+  @NotNull
+  @Min(value = 0)
   private Integer numberOfCopies;
 
   @ManyToMany
