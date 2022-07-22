@@ -7,6 +7,10 @@
   <body>
   <nav th:replace="fragments/navbar :: navbar('book')"></nav>
   <div class="container">
+  <!--  messaggi alert  -->
+  	<th:block th:if="${successMessage != null && successMessage != ''}">
+  		<div  class="alert alert-success" th:text="${successMessage}"></div>
+  	</th:block>
   	<h1>Books</h1>
   	<hr/>
   	<!-- link che mi porta al controller che restituisce la form -->
@@ -20,6 +24,7 @@
 	  			<th>Publisher</th>
 	  			<th>ISBN</th>
 	  			<th>Categories</th>
+	  			<th>Actions</th>
   			</tr>
   		</thead>
   		<tbody>
@@ -33,14 +38,23 @@
 	  					<li th:each="c : ${b.categories}" th:text="${c.name}"></li>
 	  				</ul>
 	  			</td>
+	  			<td>
+	  				<a class="btn btn-primary" th:href="@{|/delete/${b.id}|}" title="Delete" onclick="return confirm('Are your sure?')">
+	  					<i class="fa-solid fa-trash-can"></i>
+	  				</a>
+	  				<a class="btn btn-primary" th:href="@{|/edit/${b.id}|}" title="Edit">
+	  					<i class="fa-solid fa-pen-to-square"></i>
+	  				</a>
+	  			</td>
   			</tr>
   		</tbody>
   	</table>
+  	<!-- se la lista di book è vuota -->
+	  <div class="alert alert-info my-5" th:unless="${books.size() > 0}">
+	  	<h3>There are no books yet</h3>
+	  </div>
   </div>
-  <!-- se la lista di book è vuota -->
-  <div class="alert alert-info my-5" th:unless="${books.size() > 0}">
-  	<h3>There are no books yet</h3>
-  </div>
+  
   <th:bock th:replace="fragments/risorse :: risorse-js"></th:bock>
   </body>
 </html>

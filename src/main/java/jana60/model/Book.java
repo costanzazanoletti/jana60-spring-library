@@ -39,6 +39,7 @@ public class Book {
 
   private Integer year;
 
+
   @NotNull
   @Min(value = 0)
   private Integer numberOfCopies;
