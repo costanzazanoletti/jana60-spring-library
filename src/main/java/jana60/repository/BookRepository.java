@@ -5,5 +5,5 @@ import jana60.model.Book;
 
 public interface BookRepository extends CrudRepository<Book, Integer> {
 
-  public Integer countByIsbn(String isbn);
+  public Integer countByIsbn(String isbn); // select count(*) from book where isbn = ?
 }

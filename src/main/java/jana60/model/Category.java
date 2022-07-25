@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Category {
@@ -15,6 +16,7 @@ public class Category {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @NotEmpty(message = "Category name cannot be empty")
   @Column(nullable = false)
   private String name;
 
@@ -37,6 +39,18 @@ public class Category {
     this.name = name;
   }
 
+  public List<Book> getBooks() {
+    return books;
+  }
 
+  public void setBooks(List<Book> books) {
+    this.books = books;
+  }
+
+  // metodi public custom
+
+  public int getNumberOfBooks() {
+    return books.size();
+  }
 
 }

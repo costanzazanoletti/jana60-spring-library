@@ -44,6 +44,7 @@ public class Book {
   @Min(value = 0)
   private Integer numberOfCopies;
 
+
   @ManyToMany
   private List<Category> categories;
 

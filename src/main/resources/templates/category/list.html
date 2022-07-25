@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:replace="fragments/risorse :: risorse-head"></th:block>
+<title>Categories</title>
+</head>
+<body>
+	<nav th:replace="fragments/navbar :: navbar('category')"></nav>
+	<div class="container">
+		<h1>Categories</h1>
+		<hr />
+		<div class="col-6">
+		<!-- Inizio Form -->
+			<form 
+				id="form-category" 
+				th:object="${newCategory}"
+				th:action="@{/category/save}" 
+				method="POST">
+				
+				<div class="input-group mb-3 has-validation">
+					<input th:field="*{name}" type="text" class="form-control"
+						placeholder="Add a category" aria-label="Add a category"
+						aria-describedby="category-button" th:errorClass="is-invalid">
+					<button class="btn btn-primary" type="submit" id="category-button">Save</button>
+					<div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+						<ul>
+							<li th:each="err : ${#fields.errors('name')}" th:text="${err}">
+						</ul>
+					</div>		
+				</div>
+				
+			</form>
+			<!--  fine form -->
+			<!--  inizio lista  -->
+			<ul class="list-group" th:if="${categories.size() > 0}">
+				<li class="list-group-item" th:each="cat : ${categories}">
+					<span th:text="${cat.name}"></span>
+					<span 
+						class="badge rounded-pill text-bg-info" 
+						th:text="${cat.books.size()}" 
+						th:if="${cat.getNumberOfBooks() > 0}">
+					</span>					
+				</li>
+			</ul>
+			<!-- se la lista è vuota -->
+			<div class="alert alert-info my-5"
+				th:unless="${categories.size() > 0}">
+				<h3>There are no categories yet</h3>
+			</div>
+			<!--  fine lista -->
+		</div>
+	</div>
+
+	<th:bock th:replace="fragments/risorse :: risorse-js"></th:bock>
+</body>
+</html>

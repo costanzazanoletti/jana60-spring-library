@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jana60.model.Book;
 import jana60.repository.BookRepository;
+import jana60.repository.CategoryRepository;
 
 @Controller
 @RequestMapping("/")
@@ -24,6 +25,9 @@ public class BookController {
 
   @Autowired
   private BookRepository repo;
+
+  @Autowired
+  private CategoryRepository categoryRepo;
 
   @GetMapping
   public String bookList(Model model) {
@@ -38,6 +42,7 @@ public class BookController {
   @GetMapping("/add")
   public String bookForm(Model model) {
     model.addAttribute("book", new Book());
+    model.addAttribute("categoryList", categoryRepo.findAllByOrderByName());
     return "/book/edit";
   }
 
@@ -64,6 +69,7 @@ public class BookController {
 
     if (hasErrors) {
       // se ci sono errori non salvo il book su database ma ritorno alla form precaricata
+      model.addAttribute("categoryList", categoryRepo.findAllByOrderByName());
       return "/book/edit";
     } else {
       // se non ci sono errori salvo il book che arriva dalla form
@@ -71,6 +77,7 @@ public class BookController {
         repo.save(formBook);
       } catch (Exception e) { // gestisco eventuali eccezioni sql
         model.addAttribute("errorMessage", "Unable to save the Book");
+        model.addAttribute("categoryList", categoryRepo.findAllByOrderByName());
         return "/book/edit";
       }
       return "redirect:/"; // non cercare un template, ma fai la HTTP redirect a quel path
@@ -102,6 +109,7 @@ public class BookController {
       // preparo il template con al form passandogli il book trovato su db
 
       model.addAttribute("book", result.get());
+      model.addAttribute("categoryList", categoryRepo.findAllByOrderByName());
       return "/book/edit";
     } else {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND,
