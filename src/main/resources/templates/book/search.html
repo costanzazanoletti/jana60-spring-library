@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="fragments/risorse :: risorse-head"></th:block>
+    <title>Books</title> 
+  </head>
+  <body>
+  <nav th:replace="fragments/navbar :: navbar('search')"></nav>
+  <div class="container">
+  	<form action="/search">
+    	Title: <input class="form-control" type="text" name="queryTitle">
+    	Author: <input class="form-control" type="text" name="queryAuthor">
+    	<button>Search</button>
+    </form>
+  </div>  
+  <th:bock th:replace="fragments/risorse :: risorse-js"></th:bock>
+  </body>
+</html>

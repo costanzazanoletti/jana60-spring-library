@@ -21,9 +21,17 @@
 	        <li class="nav-item">
 	          <a class="nav-link" th:classAppend="${current == 'category'} ? active : not-active" href="/category">Category</a>
 	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" th:classAppend="${current == 'search'} ? active : not-active" href="/advanced_search">Search</a>
+	        </li>
 	     
 	      </ul>
 	    </div>
+	    
+	    <form action="/search">
+	    	<input class="form-control" type="text" name="queryTitle">
+	    	<button>Search</button>
+	    </form>
 	  </div>
 	</nav>
   </body>

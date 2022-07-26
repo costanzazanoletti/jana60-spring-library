@@ -1,5 +1,6 @@
 package jana60.controller;
 
+import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jana60.model.Book;
@@ -35,6 +37,27 @@ public class BookController {
     return "/book/list"; // -> il nome o path di un template che si trova in /resources/templates
   }
 
+  @GetMapping("/advanced_search")
+  public String advancedSearch() {
+	  return "/book/search";
+  }
+  
+  @GetMapping("/search")
+  public String search(@RequestParam(name = "queryTitle") String queryTitle, 
+		  @RequestParam(name = "queryAuthor", required = false) String queryAuthor, Model model) {
+	  
+	  if (queryTitle != null && queryTitle.isEmpty()) {
+		  queryTitle = null;
+	  }
+	  if (queryAuthor != null && queryAuthor.isEmpty()) {
+		  queryAuthor = null;
+	  }
+	  
+	  List<Book> books = repo.findByTitleContainingOrAuthorsContainingIgnoreCase(queryTitle, queryAuthor);
+	  model.addAttribute("books", books);
+	  return "/book/list";
+  }
+  
   /*
    * controller che ritorna la view con la form
    * vuota per aggiungere un nuovo book
