@@ -11,7 +11,47 @@
   		<h1 th:text="${borrowing.book.title}"></h1>
   		<hr/>
   		<!-- form che gestisce l'attributo book -->
-  		
+  		<form
+  			id="borrowing-form"
+  			th:action="@{/borrowing/save}"
+  			method="POST"
+  			th:object="${borrowing}"
+  		>
+  			<input type="hidden" th:field="*{book}">
+  			<div class="mb-3">
+  				<label class="form-label" for="startDate">Start date</label>
+  				<input type="date" id="startDate" class="form-control" th:field="*{startDate}" th:errorClass="is-invalid">
+  				<div th:if="${#fields.hasErrors('startDate')}" class="invalid-feedback">
+  					<ul>
+  						<li th:each="err : ${#fields.errors('startDate')}" th:text="${err}">
+  					</ul>
+  				</div>
+  			</div>
+  			<div class="mb-3">
+  				<label class="form-label" for="returnDate">Return date</label>
+  				<input type="date" id="returnDate" class="form-control" th:field="*{returnDate}" th:errorClass="is-invalid">
+  				<div th:if="${#fields.hasErrors('returnDate')}" class="invalid-feedback">
+  					<ul>
+  						<li th:each="err : ${#fields.errors('returnDate')}" th:text="${err}">
+  					</ul>
+  				</div>
+  			</div>
+  			<div class="mb-3">
+  				<label class="form-label" for="note">Note</label>
+  				<input type="text" id="note" class="form-control" th:field="*{note}">	
+  			</div>
+  			<div class="mb-3">
+  				<label class="form-label" for="note">Note</label>
+  				<select th:field="*{user}" class="form-select" aria-label="User select">
+				  <option value="" selected>Select a user</option>
+				  <option th:each="user : ${userList}" th:value="${user.id}" th:text="${user.email}"></option>
+				</select>
+  			</div>
+  			<div>
+  				<button type="submit" class="btn btn-primary">Save</button>
+  				<a class="btn btn-primary" th:href="@{|/detail/${borrowing.book.id}|}">Cancel</a>
+  			</div>
+  		</form>
   		
   	</div>
   	

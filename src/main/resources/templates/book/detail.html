@@ -42,6 +42,11 @@
   	</div>
   	<div>
   		<h3>Borrowings</h3>
+  		<a 
+  			class="btn btn-primary" 
+ 			th:href="@{|/borrowing/${book.id}|}"
+ 			th:classAppend="${book.getAvailableCopies() > 0} ? '' : 'disabled'"
+ 		>Borrow this book</a>
   		<table class="table">
   			<thead>
   				<th>Start date</th>

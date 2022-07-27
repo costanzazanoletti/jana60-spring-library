@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Borrowing {
@@ -13,15 +14,18 @@ public class Borrowing {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @NotNull
   private LocalDate startDate;
 
   private LocalDate returnDate;
 
   private String note;
 
+  @NotNull
   @ManyToOne
   private Book book;
 
+  @NotNull
   @ManyToOne
   private User user;
 
