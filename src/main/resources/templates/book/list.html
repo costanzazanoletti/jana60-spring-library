@@ -39,6 +39,9 @@
 	  				</ul>
 	  			</td>
 	  			<td>
+	  				<a class="btn btn-primary" th:href="@{|/detail/${b.id}|}" title="Detail">
+	  					<i class="fa-solid fa-book"></i>
+	  				</a>
 	  				<a class="btn btn-primary" th:href="@{|/delete/${b.id}|}" title="Delete" onclick="return confirm('Are your sure?')">
 	  					<i class="fa-solid fa-trash-can"></i>
 	  				</a>

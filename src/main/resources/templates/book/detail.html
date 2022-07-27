@@ -13,8 +13,53 @@
   	</th:block>
   	
   	<h1 th:text="${book.title}"></h1>
-  	<h2 th:text="${book.authors}"></h2>
+  	<h2 th:text="${book.authors}" class="text-muted"></h2>
   	<hr/>
+  	<div class="row">
+  		<div class="col-8">
+  			<dl th:object="${book}">
+  				<dt>ISBN</dt>
+  				<dd th:text="*{isbn}"></dd>
+  				<dt>Publisher</dt>
+  				<dd th:text="*{publisher}"></dd>
+  				<dt>Year</dt>
+  				<dd th:text="*{year}"></dd>
+  				<dt>Number of pages</dt>
+  				<dd th:text="*{numberOfPages}"></dd>
+  				<dt>Number of copies</dt>
+  				<dd th:text="|${book.numberOfCopies} (${book.getAvailableCopies()} disponibili)|"></dd>
+  				<dt>Synopsis</dt>
+  				<dd th:text="*{synopsis}"></dd>
+  			</dl>
+  		</div>
+  		
+  		<div class="col-4">
+  			<h4>Categories</h4>
+  			<ul>
+  				<li th:each="cat : ${book.categories}" th:text="${cat.name}"></li>
+  			</ul>
+  		</div>
+  	</div>
+  	<div>
+  		<h3>Borrowings</h3>
+  		<table class="table">
+  			<thead>
+  				<th>Start date</th>
+  				<th>Return date</th>
+  				<th>Note</th>
+  				<th>User</th>
+  			</thead>
+  			<tbody>
+  				<tr th:each="bor : ${book.borrowings}">
+  					<td th:text="${bor.startDate}">Start date</td>
+	  				<td th:text="${bor.returnDate}">Return date</td>
+	  				<td th:text="${bor.note}">Note</td>
+	  				<td th:text="${bor.user.email}">User</td>
+  				</tr>
+  			</tbody>
+  		</table>
+  	</div>
+  	
   	
   </div>
   

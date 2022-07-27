@@ -142,5 +142,22 @@ public class Book {
     this.borrowings = borrowings;
   }
 
+  // metodi custom
+
+  /*
+   * ritorna il numero di copie disponibili, calcolato come:
+   * 
+   * numero di copie in magazzino - numero di prestiti non restituiti
+   */
+  public int getAvailableCopies() {
+    int availableCopies = this.numberOfCopies;
+    for (Borrowing b : this.borrowings) {
+      if (b.getReturnDate() == null) {
+        availableCopies -= 1;
+      }
+    }
+    return availableCopies;
+  }
+
 
 }

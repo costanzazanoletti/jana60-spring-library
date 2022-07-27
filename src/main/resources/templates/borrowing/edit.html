@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="fragments/risorse :: risorse-head"></th:block>
+    <title>Borrow book</title> 
+  </head>
+  <body>
+  	<nav th:replace="fragments/navbar :: navbar('book')"></nav>
+  	<div class="container">
+  		
+  		<h1 th:text="${borrowing.book.title}"></h1>
+  		<hr/>
+  		<!-- form che gestisce l'attributo book -->
+  		
+  		
+  	</div>
+  	
+  <th:bock th:replace="fragments/risorse :: risorse-js"></th:bock>
+  </body>
+</html>
