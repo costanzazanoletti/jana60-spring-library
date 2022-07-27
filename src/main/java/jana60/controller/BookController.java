@@ -39,25 +39,26 @@ public class BookController {
 
   @GetMapping("/advanced_search")
   public String advancedSearch() {
-	  return "/book/search";
+    return "/book/search";
   }
-  
+
   @GetMapping("/search")
-  public String search(@RequestParam(name = "queryTitle") String queryTitle, 
-		  @RequestParam(name = "queryAuthor", required = false) String queryAuthor, Model model) {
-	  
-	  if (queryTitle != null && queryTitle.isEmpty()) {
-		  queryTitle = null;
-	  }
-	  if (queryAuthor != null && queryAuthor.isEmpty()) {
-		  queryAuthor = null;
-	  }
-	  
-	  List<Book> books = repo.findByTitleContainingOrAuthorsContainingIgnoreCase(queryTitle, queryAuthor);
-	  model.addAttribute("books", books);
-	  return "/book/list";
+  public String search(@RequestParam(name = "queryTitle") String queryTitle,
+      @RequestParam(name = "queryAuthor", required = false) String queryAuthor, Model model) {
+
+    if (queryTitle != null && queryTitle.isEmpty()) {
+      queryTitle = null;
+    }
+    if (queryAuthor != null && queryAuthor.isEmpty()) {
+      queryAuthor = null;
+    }
+
+    List<Book> books =
+        repo.findByTitleContainingOrAuthorsContainingIgnoreCase(queryTitle, queryAuthor);
+    model.addAttribute("books", books);
+    return "/book/list";
   }
-  
+
   /*
    * controller che ritorna la view con la form
    * vuota per aggiungere un nuovo book
@@ -134,6 +135,20 @@ public class BookController {
       model.addAttribute("book", result.get());
       model.addAttribute("categoryList", categoryRepo.findAllByOrderByName());
       return "/book/edit";
+    } else {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+          "Book con id " + bookId + " not present");
+    }
+
+  }
+
+  @GetMapping("/detail/{id}")
+  public String bookDetail(@PathVariable("id") Integer bookId, Model model) {
+
+    Optional<Book> book = repo.findById(bookId);
+    if (book.isPresent()) {
+      model.addAttribute("book", book.get());
+      return "/book/detail";
     } else {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND,
           "Book con id " + bookId + " not present");

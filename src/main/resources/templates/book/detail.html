@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="fragments/risorse :: risorse-head"></th:block>
+    <title th:text="${book.title}"></title> 
+  </head>
+  <body>
+  <nav th:replace="fragments/navbar :: navbar('book')"></nav>
+  <div class="container">
+  	<!--  messaggi alert  -->
+  	<th:block th:if="${successMessage != null && successMessage != ''}">
+  		<div  class="alert alert-success" th:text="${successMessage}"></div>
+  	</th:block>
+  	
+  	<h1 th:text="${book.title}"></h1>
+  	<h2 th:text="${book.authors}"></h2>
+  	<hr/>
+  	
+  </div>
+  
+  <th:bock th:replace="fragments/risorse :: risorse-js"></th:bock>
+  </body>
+</html>
