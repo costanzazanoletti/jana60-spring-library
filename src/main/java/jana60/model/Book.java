@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -47,6 +48,11 @@ public class Book {
 
   @ManyToMany
   private List<Category> categories;
+
+
+  @OneToMany(mappedBy = "book")
+  private List<Borrowing> borrowings;
+
 
   public Integer getId() {
     return id;
@@ -126,6 +132,14 @@ public class Book {
 
   public void setCategories(List<Category> categories) {
     this.categories = categories;
+  }
+
+  public List<Borrowing> getBorrowings() {
+    return borrowings;
+  }
+
+  public void setBorrowings(List<Borrowing> borrowings) {
+    this.borrowings = borrowings;
   }
 
 
