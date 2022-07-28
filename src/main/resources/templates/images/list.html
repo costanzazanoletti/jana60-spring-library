@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:replace="fragments/risorse :: risorse-head"></th:block>
+<title>Book Images</title>
+</head>
+<body>
+	<nav th:replace="fragments/navbar :: navbar('book')"></nav>
+	<div class="container">
+		<h1>Book Images</h1>
+		<h2 class="text-muted" th:text="${imageForm.book.title}"></h2>
+		<hr />
+		<div class="col-6">
+		<!-- Inizio Form (mappata su un oggetto di tipo ImageForm, non Image -->
+			<form 
+				id="form-img" 
+				th:object="${imageForm}"
+				th:action="@{/image/save}" 
+				method="POST"
+				enctype="multipart/form-data"
+				>
+				<input type="hidden" th:field="*{book}">
+				<div class="mb-3">
+				  <label for="contentMultipart" class="form-label">Add a new image</label>
+				  <input class="form-control" type="file" id="contentMultipart" th:field="*{contentMultipart}">
+				</div>
+				<button class="btn btn-primary" type="submit">Save</button>
+			</form>
+			<!--  fine form -->
+			<!--  inizio lista (model attribute imageList) -->
+			<div class="row">
+				<div class="col-3" th:each="img : ${imageList}">
+					<img th:src="@{|/image/${img.id}/content|}" class="img-fluid" alt="">
+					<!--  span th:text="${img.id}"></span -->
+				</div>
+			</div>
+			
+			<!--  fine lista -->
+		</div>
+	</div>
+
+	<th:bock th:replace="fragments/risorse :: risorse-js"></th:bock>
+</body>
+</html>
