@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Category {
@@ -20,6 +21,7 @@ public class Category {
   @Column(nullable = false)
   private String name;
 
+  @JsonBackReference
   @ManyToMany(mappedBy = "categories")
   private List<Book> books;
 

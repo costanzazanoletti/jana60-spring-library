@@ -13,6 +13,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Book {
@@ -47,9 +49,11 @@ public class Book {
 
 
   @ManyToMany
+  @JsonManagedReference
   private List<Category> categories;
 
 
+  @JsonBackReference
   @OneToMany(mappedBy = "book")
   private List<Borrowing> borrowings;
 

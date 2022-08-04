@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Borrowing {
@@ -21,6 +22,7 @@ public class Borrowing {
 
   private String note;
 
+  @JsonManagedReference
   @NotNull
   @ManyToOne
   private Book book;
